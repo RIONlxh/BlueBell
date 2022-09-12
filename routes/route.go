@@ -18,7 +18,7 @@ func SetUpRouter(mode string) *gin.Engine {
 	v1 := r.Group("/api/v1/")
 
 	// 注册路由
-	v1.GET("sign_up", views.SignUp)
+	v1.POST("sign_up", views.SignUp)
 
 	r.NoRoute(func(c *gin.Context) {
 		c.JSON(http.StatusOK, gin.H{
