@@ -2,6 +2,8 @@ package mysql
 
 import (
 	"BlueBell/models"
+	"BlueBell/utils"
+	"database/sql"
 	"errors"
 )
 
@@ -21,12 +23,27 @@ func CheckUserExist(su *models.SignUpParams) (err error) {
 // 创建一个用户
 func CreateUser(u *models.User) (err error) {
 	sql := "INSERT INTO user(user_id,username,password) VALUES (?,?,?)"
-	userId := u.UserId
-	username := u.Username
-	password := u.Password
-	_, err = db.Exec(sql, userId, username, password)
+	u.Password = utils.Md5Encrypt(u.Password)
+	_, err = db.Exec(sql, u.UserId, u.Username, u.Password)
 	if err != nil {
 		return err
 	}
-	return err
+	return
+}
+
+func AuthUser(u *models.User) (err error) {
+	md5Password := utils.Md5Encrypt(u.Password)
+	sqlStr := `select user_id,username,password from user where username = ?`
+	err = db.Get(u, sqlStr, u.Username)
+	if err == sql.ErrNoRows {
+		return errors.New("用户名不存在")
+	}
+	if err != nil {
+		return errors.New("查询失败")
+	}
+	if md5Password != u.Password {
+		return errors.New("用户名或密码错误")
+	}
+	return
+
 }

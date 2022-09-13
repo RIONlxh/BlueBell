@@ -27,3 +27,10 @@ func SignUpParamCheck(signUp *models.SignUpParams) (returnMsg bool, msg string) 
 	}
 	return true, msg
 }
+
+func LoginParamCheck(l *models.LoginParams) (returnMsg bool) {
+	if len(l.VCode) != 6 {
+		return false
+	}
+	return true
+}
