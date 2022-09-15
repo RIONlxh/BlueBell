@@ -5,9 +5,10 @@ version: "v0.0.1"
 start_time: "2022-09-07"
 machine_id: 1
 secret: "fawfey2873ry87hahfafo*1827&6"
+jwtSecret: "jwt_rion_lucy9876@$3%*20220222"
 
 auth:
-  jwt_expire: 8760
+  jwt_expire: 72
 
 log:
   level: "debug"

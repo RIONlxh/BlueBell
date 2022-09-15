@@ -8,14 +8,14 @@ import (
 type BaseResponse struct {
 	Code ResCode     `json:"code"`
 	Msg  interface{} `json:"msg"`
-	Data interface{} `json:"Data"`
+	Data interface{} `json:"data"`
 }
 
-func ResponseSuccess(c *gin.Context, code ResCode) {
+func ResponseSuccess(c *gin.Context, data interface{}) {
 	c.JSON(http.StatusOK, &BaseResponse{
-		Code: code,
-		Msg:  code.Msg(),
-		Data: nil,
+		Code: CodeSuccess,
+		Msg:  CodeSuccess.Msg(),
+		Data: data,
 	})
 }
 

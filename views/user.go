@@ -59,7 +59,7 @@ func SignUp(c *gin.Context) {
 func Login(c *gin.Context) {
 	// 1.校验用户登录参数
 	loginP := new(models.LoginParams)
-	err := c.ShouldBindJSON(&loginP)
+	_ = c.ShouldBindJSON(&loginP)
 	ret := logic.LoginParamCheck(loginP)
 	if !ret {
 		ResponseError(c, CodeInvalidParam)
@@ -71,7 +71,7 @@ func Login(c *gin.Context) {
 		Username: loginP.Username,
 		Password: loginP.Password,
 	}
-	err = mysql.AuthUser(&user)
+	token, err := mysql.AuthUser(&user)
 	if err != nil {
 		zap.L().Error("Login Failed!", zap.String("username", loginP.Username), zap.Error(err))
 		ResponseError(c, CodeInvalidPassword)
@@ -79,5 +79,5 @@ func Login(c *gin.Context) {
 	}
 
 	// 3.返回结果
-	ResponseSuccess(c, CodeSuccess)
+	ResponseSuccess(c, token)
 }
