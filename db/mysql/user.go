@@ -32,7 +32,7 @@ func CreateUser(u *models.User) (err error) {
 	return
 }
 
-func AuthUser(u *models.User) (token string, err error) {
+func UserLogin(u *models.User) (token string, err error) {
 	md5Password := utils.Md5Encrypt(u.Password)
 	sqlStr := `select user_id,username,password from user where username = ?`
 	err = db.Get(u, sqlStr, u.Username)

@@ -71,7 +71,7 @@ func Login(c *gin.Context) {
 		Username: loginP.Username,
 		Password: loginP.Password,
 	}
-	token, err := mysql.AuthUser(&user)
+	token, err := mysql.UserLogin(&user)
 	if err != nil {
 		zap.L().Error("Login Failed!", zap.String("username", loginP.Username), zap.Error(err))
 		ResponseError(c, CodeInvalidPassword)
