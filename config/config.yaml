@@ -1,6 +1,6 @@
 name: "bluebell"
 mode: "dev"
-port: 8000
+port: 3022
 version: "v0.0.1"
 start_time: "2022-09-07"
 machine_id: 1

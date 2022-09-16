@@ -44,7 +44,7 @@ func ParseToken(tokenString string) (*MyClaims, error) {
 	// 解析这个tokenstring，并将内容传递到结构体中
 	// 第三个参数的function用来传递一个签名字符串
 	token, err := jwt.ParseWithClaims(tokenString, mc, func(token *jwt.Token) (interface{}, error) {
-		return viper.GetString("auth.jwt_secret"), nil
+		return []byte(viper.GetString("auth.jwt_secret")), nil
 	})
 	if err != nil {
 		return nil, err

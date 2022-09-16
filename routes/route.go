@@ -2,6 +2,7 @@ package routes
 
 import (
 	"BlueBell/logger"
+	"BlueBell/middleware"
 	"BlueBell/views"
 	"github.com/gin-gonic/gin"
 	"net/http"
@@ -17,10 +18,12 @@ func SetUpRouter(mode string) *gin.Engine {
 
 	v1 := r.Group("/api/v1/")
 
-	// 注册路由
 	v1.POST("sign_up", views.SignUp)
 	v1.POST("login", views.Login)
-
+	v1.Use(middleware.AuthLogin())
+	{
+		v1.GET("admin", views.AdminIndex)
+	}
 	r.NoRoute(func(c *gin.Context) {
 		c.JSON(http.StatusOK, gin.H{
 			"code": 404,

@@ -81,3 +81,7 @@ func Login(c *gin.Context) {
 	// 3.返回结果
 	ResponseSuccess(c, token)
 }
+
+func AdminIndex(c *gin.Context) {
+	ResponseSuccess(c, "登录成功")
+}
