@@ -17,3 +17,5 @@
 
 # ignore log
 web_app.log
+
+/tmp
