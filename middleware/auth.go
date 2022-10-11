@@ -18,7 +18,6 @@ func AuthLogin() gin.HandlerFunc {
 		}
 		// 按照空格分割，当匹配到一个空格时，后续的内容作为一个整体。组合成一个含2个元素的切片
 		splitContent := strings.SplitN(authHeader, " ", 2)
-		fmt.Println(splitContent)
 		if !(len(splitContent) == 2 && splitContent[0] == "Bearer") {
 			views.ResponseError(c, views.CodeInvalidToken)
 			c.Abort() // 打断后续的中间件

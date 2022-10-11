@@ -23,6 +23,10 @@ func SetUpRouter(mode string) *gin.Engine {
 	v1.Use(middleware.AuthLogin())
 	{
 		v1.GET("admin", views.AdminIndex)
+		v1.GET("community/get_community_list", views.GetCommunityList)
+		v1.GET("community/get_community_detail/:cid", views.GetCommunityDetail)
+		v1.GET("post/create_one", views.CreateOnePost)
+		v1.GET("post/delete_one/:postid", views.DeleteOnePost)
 	}
 	r.NoRoute(func(c *gin.Context) {
 		c.JSON(http.StatusOK, gin.H{
